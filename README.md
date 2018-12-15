@@ -1,2 +1,2 @@
 # elemental
-Basics of neural networks from scratch
+Basic of neural networks and concerned algorithms from scratch
