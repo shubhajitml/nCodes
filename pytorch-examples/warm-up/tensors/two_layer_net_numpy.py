@@ -55,4 +55,4 @@ finish_time = time.time()
 # print(f'w2 before running sgd: ', w2_old)
 # print(f'w2 after running sgd: ', w2)
 
-print(f'time of execution: ' ,(finish_time - start_time)) # in my first run 1.160381555557251 ms
+print(f'time of execution: ' , finish_time - start_time) # in my first run 1.160381555557251 ms

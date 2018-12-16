@@ -43,4 +43,4 @@ for t in range(500):
     w2 -= learning_rate * grad_w2
 
 finish_time = time.time()
-print(f'time of execution: ' , finish_time - start_time) print(f'time of execution: ' ,(finish_time - start_time)) # in my first run # in my first run 1.1758019924163818 ms
+print(f'time of execution: ' ,(finish_time - start_time)) # in my first run # in my first run 1.1758019924163818 ms
