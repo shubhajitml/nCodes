@@ -5,6 +5,7 @@
 # minimizing the Euclidean distance between the network output 
 # and the true output.
 import numpy as np
+import time
 
 # N : batch size, D_in : input dimension,
 # H : hidden dimension, D_out : output dimension
@@ -23,6 +24,7 @@ w1_old = w1.copy()
 w2_old = w2.copy()
 
 learning_rate = 1e-6
+start_time = time.time()
 for t in range(500):
     # Forward pass : compute y_pred
     h = x.dot(w1)
@@ -45,8 +47,12 @@ for t in range(500):
     w1 -= learning_rate * grad_w1
     w2 -= learning_rate * grad_w2
 
-# experimenting weight_matrices values
-print(f'w1 before running sgd: ', w1_old)
-print(f'w1 after running sgd: ', w1)
-print(f'w2 before running sgd: ', w2_old)
-print(f'w2 after running sgd: ', w2)
+finish_time = time.time()
+
+# # experimenting weight_matrices values
+# print(f'w1 before running sgd: ', w1_old)
+# print(f'w1 after running sgd: ', w1)
+# print(f'w2 before running sgd: ', w2_old)
+# print(f'w2 after running sgd: ', w2)
+
+print(f'time of execution: ' ,(finish_time - start_time)) # in my first run 1.160381555557251 ms
