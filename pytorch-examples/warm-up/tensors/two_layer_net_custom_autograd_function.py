@@ -71,9 +71,12 @@ for t in range(500):
 
     # update weights using gradient descent
     with torch.no_grad():
-        w1 = learning_rate * w1.grad
-        w2 = learning_rate * w2.grad
+        w1 -= learning_rate * w1.grad
+        w2 -= learning_rate * w2.grad
 
         # manually zero the gradients after updating weights
         w1.grad.zero_()
         w2.grad.zero_()
+
+finish_time = time.time()
+print(f'time of execution: ', finish_time - start_time)  # in my first run 2.2270095348358154 ms
