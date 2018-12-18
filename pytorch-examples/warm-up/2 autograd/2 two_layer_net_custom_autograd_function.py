@@ -5,8 +5,8 @@
 
 # In this implementation we implement our own custom autograd function to perform the ReLU function.
 # coding: utf-8
-import torch
 import time
+import torch
 
 class MyRelu(torch.autograd.Function):
     """

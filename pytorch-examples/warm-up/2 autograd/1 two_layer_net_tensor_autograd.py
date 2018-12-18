@@ -11,9 +11,9 @@ import time
 dtype = torch.float
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
-# N is batch size; D_in is input dimension;
-# H is hidden dimension; D_out is output dimension.
-N, D_in, H, D_out = 64, 1000, 100, 10
+# N : batch size, D_in : input dimension,
+# H : hidden dimension, D_out : output dimension
+N, D_in , H , D_out = 64, 1000, 100, 10
 
 # create random tensors to hold inputs and outputs
 # setting requires_grad=False indicates that we don't ned to compute gradients
