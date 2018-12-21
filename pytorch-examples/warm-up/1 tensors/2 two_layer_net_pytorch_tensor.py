@@ -1,22 +1,22 @@
 # Tensor is an n-dimensional array
 # Pytorch Tensor is conceptually identical to numpy array 
-import torch
 import time
+import torch
 
 dtype = torch.float
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 # N : batch size, D_in : input dimension,
 # H : hidden dimension, D_out : output dimension
-N, D_in , H , D_out = 64, 1000, 100, 10
+N, D_in, H, D_out = 64, 1000, 100, 10
 
 # create random input and output data
-x = torch.randn(N, D_in, device = device, dtype = dtype)
-y = torch.randn(N, D_out, device = device, dtype = dtype)
+x = torch.randn(N, D_in, device=device, dtype=dtype)
+y = torch.randn(N, D_out, device=device, dtype=dtype)
 
 # randomly initialize the weights
-w1 = torch.randn(D_in, H, device = device, dtype = dtype)
-w2 = torch.randn(H, D_out, device = device, dtype = dtype)
+w1 = torch.randn(D_in, H, device=device, dtype=dtype)
+w2 = torch.randn(H, D_out, device=device, dtype=dtype)
 
 learning_rate = 1e-6
 start_time = time.time()
@@ -43,4 +43,4 @@ for t in range(500):
     w2 -= learning_rate * grad_w2
 
 finish_time = time.time()
-print(f'time of execution: ' ,(finish_time - start_time)) # in my first run # in my first run 1.1758019924163818 ms
+print(f'time of execution: ', finish_time - start_time) # in my first run 1.1758019924163818 ms

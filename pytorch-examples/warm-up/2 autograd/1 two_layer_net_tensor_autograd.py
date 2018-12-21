@@ -5,27 +5,27 @@
 # Backpropagating through this graph then allows you to easily compute gradients.
 
 # coding: utf-8
-import torch
 import time
+import torch
 
 dtype = torch.float
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 # N : batch size, D_in : input dimension,
 # H : hidden dimension, D_out : output dimension
-N, D_in , H , D_out = 64, 1000, 100, 10
+N, D_in, H, D_out = 64, 1000, 100, 10
 
 # create random tensors to hold inputs and outputs
 # setting requires_grad=False indicates that we don't ned to compute gradients
 # WRT. these Tensors during the backward pass 
-x = torch.randn(N, D_in, device = device, dtype = dtype)
-y = torch.randn(N, D_out, device = device, dtype = dtype)
+x = torch.randn(N, D_in, device=device, dtype=dtype)
+y = torch.randn(N, D_out, device=device, dtype=dtype)
 
 # create random Tensors for weights.
 # requires_grad = True  indicates that we want to compute gradients 
 # WRT. these Tensors during backward pass
-w1 = torch.randn(D_in, H, device = device, dtype = dtype, requires_grad = True)
-w2 = torch.randn(H, D_out, device = device, dtype = dtype, requires_grad = True)
+w1 = torch.randn(D_in, H, device=device, dtype=dtype, requires_grad=True)
+w2 = torch.randn(H, D_out, device=device, dtype=dtype, requires_grad=True)
 
 learning_rate = 1e-6
 start_time = time.time()
@@ -62,4 +62,4 @@ for t in range(500):
         w2.grad.zero_()
 
 finish_time = time.time()
-print(f'time of execution: ', finish_time - start_time)  # in my first run 2.2692017555236816 ms
+print(f'time of execution:', finish_time - start_time)  # in my first run 2.2692017555236816 ms

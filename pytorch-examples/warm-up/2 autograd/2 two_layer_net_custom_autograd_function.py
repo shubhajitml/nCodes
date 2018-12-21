@@ -4,6 +4,7 @@
 # and computes the gradient of i/p Tensors WRT. that scalar value
 
 # In this implementation we implement our own custom autograd function to perform the ReLU function.
+
 # coding: utf-8
 import time
 import torch
@@ -40,8 +41,8 @@ class MyRelu(torch.autograd.Function):
 dtype = torch.float
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     
-# N is batch size; D_in is input dimension;
-# H is hidden dimension; D_out is output dimension.
+# N : batch size, D_in : input dimension,
+# H : hidden dimension, D_out : output dimension
 N, D_in, H, D_out = 64, 1000, 100, 10
 
 # Create random Tensors to hold input and outputs.

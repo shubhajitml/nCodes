@@ -10,7 +10,7 @@ import torch
 
 # N : batch size, D_in : input dimension,
 # H : hidden dimension, D_out : output dimension
-N, D_in , H , D_out = 64, 1000, 100, 10
+N, D_in, H, D_out = 64, 1000, 100, 10
 
 # create random Tensors to hold inputs and outputs
 x = torch.randn(N, D_in)
@@ -28,7 +28,7 @@ model = torch.nn.Sequential(
 
 # The nn package also contains definitions of popular loss functions; in this
 # case we will use Mean Squared Error (MSE) as our loss function.
-loss_fn = torch.nn.MSELoss(reductions='sum')
+loss_fn = torch.nn.MSELoss(reduction='sum')
 
 learning_rate = 1e-4
 start_time = time.time()
