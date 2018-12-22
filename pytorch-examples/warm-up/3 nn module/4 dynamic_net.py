@@ -5,6 +5,7 @@
 # reusing the same Module multiple times when defining the forward pass
 
 # coding : utf-8
+import time
 import random
 import torch
 
@@ -55,6 +56,7 @@ model = DynamicNet(D_in, H, D_out)
 criterion = torch.nn.MSELoss(reduction='sum')
 optimizer = torch.optim.SGD(model.parameters(), lr=1e-4, momentum=0.9)
 
+start_time = time.time()
 for t in range(500):
     # Forward pass : compute predicted y by passing x to the model
     y_pred = model(x)
@@ -67,3 +69,6 @@ for t in range(500):
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
+
+finish_time = time.time()
+print(f'time of execution: ', finish_time - start_time)  # in my first run 2.1568965911865234 s
