@@ -63,4 +63,4 @@ with tf.Session() as sess:
         print(loss_value)
 
 finish_time = time.time()
-print(f'time of execution:', finish_time - start_time)  # in my first run 2.4319450855255127 ms
+print(f'time of execution:', finish_time - start_time)  # in my first run 2.4319450855255127 s

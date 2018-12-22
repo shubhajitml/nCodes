@@ -61,4 +61,4 @@ for t in range(500):
             param -= learning_rate * param.grad
 
 finish_time = time.time()
-print(f'time of execution: ', finish_time - start_time)  # in my first run 1.188096284866333 ms
+print(f'time of execution: ', finish_time - start_time)  # in my first run 1.188096284866333 s

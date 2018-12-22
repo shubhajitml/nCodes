@@ -1,6 +1,7 @@
 # using the nn package to define our model as before, but we will optimize 
 # the model using the Adam algorithm provided by the optim package
 # -*- coding: utf-8 -*-
+import time
 import torch
 
 # N : batch size, D_in : input dimension,
@@ -13,7 +14,7 @@ y = torch.randn(N, D_out)
 
 # Use the nn package to define our model and loss function.
 model = torch.nn.Sequential(
-    torch.nn.Linear(N,D_in),
+    torch.nn.Linear(D_in, H),
     torch.nn.ReLU(),
     torch.nn.Linear(H, D_out),
 )
@@ -25,6 +26,7 @@ loss_fn = torch.nn.MSELoss(reduction='sum')
 # optimizer which Tensors it should update.
 learning_rate = 1e-4
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+start_time = time.time()
 for t in range(500):
     # Forward pass: compute predicted y by passing x to the model.
     y_pred = model(x)
@@ -39,7 +41,7 @@ for t in range(500):
     # accumulated in buffers( i.e, not overwritten) whenever .backward()
     # is called. Checkout docs of torch.autograd.backward for more details.
     optimizer.zero_grad()
-    
+
     # Backward pass: compute gradient of the loss with respect to model
     # parameters
     loss.backward()
@@ -47,3 +49,6 @@ for t in range(500):
     # Calling the step function on an Optimizer makes an update to its
     # parameters
     optimizer.step()
+
+finish_time = time.time()
+print(f'time of execution: ', finish_time - start_time)  # in my first run 2.5318691730499268 s

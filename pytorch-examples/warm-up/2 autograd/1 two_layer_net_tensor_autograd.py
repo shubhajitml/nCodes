@@ -62,4 +62,4 @@ for t in range(500):
         w2.grad.zero_()
 
 finish_time = time.time()
-print(f'time of execution:', finish_time - start_time)  # in my first run 2.2692017555236816 ms
+print(f'time of execution:', finish_time - start_time)  # in my first run 2.2692017555236816 s
