@@ -1,4 +1,4 @@
-# Code referenced from https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/01-basics/pytorch_basics/main.py
+# Code referenced from https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/01-basics/feedforward_neural_network/main.py
 # (not the copy & paste version!)
 import torch
 import torchvision
@@ -13,7 +13,7 @@ input_size = 784
 hidden_size = 500
 num_classes = 10
 num_epochs = 5
-batch_size = 64
+batch_size = 100
 learning_rate = 1e-3 
 
 # 1. Preparing dataset
@@ -52,7 +52,7 @@ total_step = len(train_loader)
 for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):
         # Move tensors to configured device
-        images = images.reshape(-1,28*28).to(device)
+        images = images.reshape(-1, 28*28).to(device)
         labels = labels.to(device)
 
         # Forward pass 
@@ -80,8 +80,8 @@ with torch.no_grad():
         total += labels.size(0)
         correct += (predicted == labels).sum().item()
 
-    print('Accuracy of the network on the 10000 test images: {}%'.format(100 * correct/total))
+    print('Accuracy of the network on the 10000 test images: {}%'.format(100 * correct/total)) #accuracy = 98.12%
 
 # 5. Save the model checkpoint
-torch.save(model.state_dict(), 'model.ckpt')
+torch.save(model.state_dict(), 'model-feedforward_nn.ckpt')
 
