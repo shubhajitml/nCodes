@@ -1,10 +1,6 @@
-# ---------------------------------------------------------------------------- #
-# An implementation of https://arxiv.org/pdf/1512.03385.pdf                    #
-# See section 4.2 for the model architecture on CIFAR-10                       #
-# Some part of the code was referenced from below                              #
-# https://github.com/pytorch/vision/blob/master/torchvision/models/resnet.py   #
-# ---------------------------------------------------------------------------- #
-
+# An implementation of https://arxiv.org/pdf/1512.03385.pdf (See section 4.2 for the model architecture on CIFAR-10)
+# Code referenced from https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/02-intermediate/convolutional_neural_network/main.py
+# (not the copy & paste version!)
 import torch
 import torch.nn as nn
 import torchvision
@@ -52,28 +48,32 @@ def conv3x3(in_channels, out_channels, stride=1):
 # Residual block
 class ResidualBlock(nn.Module):
     def __init__(self, in_channels, out_channels, stride=1, downsample=None):
-        super(ResidualBlock, self).__init__()
+        super().__init__()
         self.conv1 = conv3x3(in_channels, out_channels, stride)
         self.bn1 = nn.BatchNorm2d(out_channels)
         self.relu = nn.ReLU(inplace=True)
         self.conv2 = conv3x3(out_channels, out_channels)
         self.bn2 = nn.BatchNorm2d(out_channels)
         self.downsample = downsample
-        
+
     def forward(self, x):
-        residual = x
+        identity = x
         out = self.conv1(x)
         out = self.bn1(out)
         out = self.relu(out)
         out = self.conv2(out)
         out = self.bn2(out)
-        if self.downsample:
-            residual = self.downsample(x)
-        out += residual
+        
+        if self.downsample is not None:
+            identity = self.downsample(x)
+        
+        out += identity
         out = self.relu(out)
         return out
-# Resnet
 
+# Resnet
+class ResNet(nn.Module):
+    
 # Loss and optimizer
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
