@@ -7,9 +7,7 @@ import argparse
 from PIL import Image
 
 # Device setup
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 def load_image(img_path, transform=None, max_size=None, shape=None):
     """ Load an Image and convert into a torch tensor """
     img = Image.open(img_path)
@@ -28,14 +26,14 @@ def load_image(img_path, transform=None, max_size=None, shape=None):
 class VGGNet(nn.Module):
     """Select conv1_1 ~ conv5_1 activation maps."""
     def __init__(self):
-        super.__init__()
+        super().__init__()
         self.select = ['0', '5', '10', '19', '28']
         self.vgg = models.vgg19(pretrained=True).features
 
     def forward(self, x):
         """ Extract multiple convolutional feature maps """
         features = []
-        for name, layer in self.vgg_modules.items():
+        for name, layer in self.vgg._modules.items():
             x = layer(x)
             if name in self.select:
                 features.append(x)
@@ -57,6 +55,7 @@ def main(config):
     # Make the style image same size as the content image
     content = load_image(config.content, transform, max_size=config.max_size)
     style = load_image(config.style, transform, shape=[content.size(2), content.size(3)])
+    assert style.size() == content.size(), f"Size[style image:{style.size()} != content image:{content.size()}] style and content images must be of same size"
 
     # Initialize a target image with the content image
     target = content.clone().requires_grad_(True)
@@ -78,7 +77,7 @@ def main(config):
             content_loss += loss(t_f, c_f)
 
             # Reshape convolutional feature maps
-            _, c, h, w = t_f.size
+            _, c, h, w = t_f.size()
             t_f = t_f.view(c, h*w)
             s_f = s_f.view(c, h*w)
             
@@ -90,10 +89,10 @@ def main(config):
             style_loss += loss(t_f, s_f) / (c * h * w)
 
         # Compute total loss, backprop and optimize
-        total_loss = content_loss + config.total_weight * style_loss
+        total_loss = content_loss + config.style_weight * style_loss
         
         optimizer.zero_grad()
-        loss.backward()
+        total_loss.backward()
         optimizer.step()
 
         if (step+1) % config.log_step == 0:
@@ -104,13 +103,13 @@ def main(config):
             denorm = transforms.Normalize((-2.12, -2.04, -1.80), (4.37, 4.46, 4.44))
             img = target.clone().squeeze()
             img = denorm(img).clamp_(0, 1)
-            torchvision.utils.save_image(img, 'output-{}.png'.format(step+1))
+            torchvision.utils.save_image(img, f'output-{step+1}.png')
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--content', type=str, default='img/content.png')
-    parser.add_argument('--style', type=str, default='img/style.png')
+    parser.add_argument('--content', type=str, default='img/content.jpg')
+    parser.add_argument('--style', type=str, default='img/style.jpg')
     parser.add_argument('--max_size', type=int, default=400)
     parser.add_argument('--total_step', type=int, default=2000)
     parser.add_argument('--log_step', type=int, default=10)
