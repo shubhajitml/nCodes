@@ -1,3 +1,5 @@
+# Code referenced from https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/03-advanced/neural_style_transfer/main.py
+# (not the copy & paste version!)
 import torch
 import torchvision
 import torch.nn as nn
