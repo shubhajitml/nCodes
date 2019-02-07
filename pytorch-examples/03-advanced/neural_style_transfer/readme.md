@@ -31,5 +31,5 @@ $ python3 style_transfer.py --content='img/content.jpg' --style='img/style.jpg'
 ## Results
 The following is the result of applying neural style to my photo.
 
-<p align="center"><img width="50%" src="out/output-4000.png" /></p>
+<p align="center"><img width="200" src="out/output-4000.png" /></p>
 
